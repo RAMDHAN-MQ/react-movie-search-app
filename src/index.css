@@ -1,0 +1,105 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+/* container */
+body {
+  background-color: #121212;
+}
+
+/* header */
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+header h1 {
+  color: red;
+  font-size: 100px;
+}
+
+header input,
+button {
+  padding: 12px;
+  border-radius: 10px;
+  border: 0;
+  font-size: 20px;
+}
+
+header input {
+  width: 500px;
+}
+
+header input:focus {
+  outline: 2px solid red;
+}
+
+header button {
+  margin-left: 12px;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+}
+
+/* main / card */
+.main {
+  padding-top: 50px;
+  text-align: center;
+}
+
+.main .error {
+  color: red;
+}
+
+.main .list-card {
+  display: grid;
+  grid-template-columns: repeat(5, 200px);
+  gap: 30px;
+  padding-top: 50px;
+  justify-content: center;
+}
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  width: 200px;
+  height: 280px;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: scale(1.1);
+}
+
+.card img {
+  width: 200px;
+  height: 200px;
+  border-radius: 10px 10px 0px 0px;
+  background-color: red;
+  border: 0px;
+  object-fit: cover;
+}
+
+.card .keterangan {
+  padding: 10px;
+}
+
+.card .judul {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  padding-bottom: 3px;
+}
+
+.card .tahun {
+  border-top: 1px solid black;
+  padding-top: 5px;
+  font-size: 12px;
+}
