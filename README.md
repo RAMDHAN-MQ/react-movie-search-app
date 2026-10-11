@@ -18,5 +18,5 @@ Website tentang pencarian movie sederhana menggunakan React + Vite dan menggunak
 # Screenshots
 
 <img src="public/img/image.png">
-<img src="public/img/image1.png">
 <img src="public/img/image2.png">
+<img src="public/img/image3.png">
