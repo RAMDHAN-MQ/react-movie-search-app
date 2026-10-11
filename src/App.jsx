@@ -1,10 +1,9 @@
 import { useState } from "react";
+import { api } from "./api";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Modal from "./components/Modal";
 import Page from "./components/Page";
-
-const api = "http://www.omdbapi.com/?apikey=ce616f80&";
 
 export default function App() {
   const [keyword, setKeyword] = useState("");
@@ -32,8 +31,8 @@ export default function App() {
         }
       })
       .catch((error) => {
-        console.log(error);
         setMovies([]);
+        setStatus("Terjadi Kesalahan", error);
       })
       .finally(() => {
         setLoading(false);
@@ -45,11 +44,17 @@ export default function App() {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        setDetail(data);
+        if (data.Response === "True") {
+          setDetail(data);
+          setStatus("");
+        } else {
+          setDetail({});
+          setStatus(data.Error);
+        }
       })
       .catch((error) => {
-        console.log(error);
         setDetail({});
+        setStatus("Terjadi Kesalahan", error);
       })
       .finally(() => {
         setDetailLoading(false);
@@ -60,6 +65,8 @@ export default function App() {
     e.preventDefault();
 
     const value = e.target.elements.keyword.value;
+    if (value === "") return;
+
     setKeyword(value);
     setPage(1);
 
@@ -72,7 +79,7 @@ export default function App() {
   }
 
   function handleCloseModal(event) {
-    if (event.target.className === "modal buka") {
+    if (event.target.classList.contains("modal")) {
       setModal(false);
       setDetail({});
     }
