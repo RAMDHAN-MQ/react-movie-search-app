@@ -1,16 +1,22 @@
-# React + Vite
+# Pelacakan Pengeluaran
+Website tentang pencarian movie sederhana menggunakan React + Vite dan menggunakan api dari [OMDb API](https://www.omdbapi.com/).
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Fitur
+1. Melakukan pencarian berdasarkan judul film
+2. Menampilkan detail dari film yang diinginkan
+3. Memiliki fitur pindah page
 
-Currently, two official plugins are available:
+# Install
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+1. Install dependencies: `pnpm install`
+2. run: `pnpm run dev`
+3. Masuk ke website [OMDb API](https://www.omdbapi.com/) dan buat akun.
+4. Simpan api yang didapat
+5. Buat sebuah file api atau langsung buat di App.jsx
+6. Selesai
 
-## React Compiler
+# Screenshots
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+<img src="public/img/image.png">
+<img src="public/img/image1.png">
+<img src="public/img/image2.png">
