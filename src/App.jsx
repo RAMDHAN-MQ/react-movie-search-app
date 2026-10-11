@@ -2,7 +2,7 @@ import { useState } from "react";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Modal from "./components/Modal";
-import Button from "./components/Button";
+import Page from "./components/Page";
 
 const api = "http://www.omdbapi.com/?apikey=ce616f80&";
 
@@ -61,6 +61,8 @@ export default function App() {
 
     const value = e.target.elements.keyword.value;
     setKeyword(value);
+    setPage(1);
+
     fetchApi(`${api}s=${value}&page=1`);
   }
 
@@ -98,22 +100,12 @@ export default function App() {
         status={status}
       />
       <Modal isModal={isModal} detail={detail} loading={isDetailLoading} />
-      <div className={`control ${movies.length === 0 ? "kosong" : ""}`}>
-        <div className="page-control">
-          <Button
-            text={"Sebelumnya"}
-            onClick={() => handlePage("prev")}
-            disabled={page === 1}
-          />
-          <p className="active">{page}</p>
-          <p>/ {totalPage}</p>
-          <Button
-            text={"Selanjutnya"}
-            onClick={() => handlePage("next")}
-            disabled={page === totalPage}
-          />
-        </div>
-      </div>
+      <Page
+        onPage={handlePage}
+        totalPage={totalPage}
+        movies={movies}
+        page={page}
+      />
     </div>
   );
 }
