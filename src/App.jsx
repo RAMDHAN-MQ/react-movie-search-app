@@ -1,14 +1,21 @@
 import { useState } from "react";
+import Header from "./components/Header";
+import Main from "./components/Main";
+import Modal from "./components/Modal";
+import Button from "./components/Button";
 
 const api = "http://www.omdbapi.com/?apikey=ce616f80&";
 
 export default function App() {
+  const [keyword, setKeyword] = useState("");
   const [movies, setMovies] = useState([]);
   const [status, setStatus] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [isDetailLoading, setDetailLoading] = useState(false);
   const [isModal, setModal] = useState(false);
   const [detail, setDetail] = useState({});
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
 
   function fetchApi(url) {
     setLoading(true);
@@ -18,6 +25,7 @@ export default function App() {
         if (data.Response === "True") {
           setMovies(data.Search);
           setStatus("");
+          setTotalPage(Math.ceil(Number(data.totalResults / 10)));
         } else {
           setMovies([]);
           setStatus(data.Error);
@@ -51,8 +59,9 @@ export default function App() {
   function handleKeyword(e) {
     e.preventDefault();
 
-    const keyword = e.target.elements.keyword.value;
-    fetchApi(`${api}s=${keyword}`);
+    const value = e.target.elements.keyword.value;
+    setKeyword(value);
+    fetchApi(`${api}s=${value}&page=1`);
   }
 
   function handleOpenModal(id) {
@@ -67,6 +76,18 @@ export default function App() {
     }
   }
 
+  function handlePage(ket) {
+    if (ket === "next") {
+      const pageSekarang = page + 1;
+      fetchApi(`${api}s=${keyword}&page=${pageSekarang}`);
+      setPage(pageSekarang);
+    } else {
+      const pageSekarang = page - 1;
+      fetchApi(`${api}s=${keyword}&page=${pageSekarang}`);
+      setPage(pageSekarang);
+    }
+  }
+
   return (
     <div className="container" onClick={handleCloseModal}>
       <Header onHandleKeyword={handleKeyword} />
@@ -77,73 +98,22 @@ export default function App() {
         status={status}
       />
       <Modal isModal={isModal} detail={detail} loading={isDetailLoading} />
-    </div>
-  );
-}
-
-function Header({ onHandleKeyword }) {
-  return (
-    <header>
-      <h1>PILEM</h1>
-      <div className="pencarian">
-        <form onSubmit={onHandleKeyword}>
-          <input type="text" name="keyword" placeholder="Masukkan judul..." />
-          <button>Cari</button>
-        </form>
+      <div className={`control ${movies.length === 0 ? "kosong" : ""}`}>
+        <div className="page-control">
+          <Button
+            text={"Sebelumnya"}
+            onClick={() => handlePage("prev")}
+            disabled={page === 1}
+          />
+          <p className="active">{page}</p>
+          <p>/ {totalPage}</p>
+          <Button
+            text={"Selanjutnya"}
+            onClick={() => handlePage("next")}
+            disabled={page === totalPage}
+          />
+        </div>
       </div>
-    </header>
-  );
-}
-
-function Main({ isLoading, movies, onOpenModal, status }) {
-  return (
-    <div className="main">
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : status !== "" ? (
-        <p>{status}</p>
-      ) : (
-        <div className="list-card">
-          {movies.map((e) => (
-            <div
-              className="card"
-              key={e.imdbID}
-              onClick={() => onOpenModal(e.imdbID)}
-            >
-              <img src={e.Poster} alt={e.Title} />
-              <div className="keterangan">
-                <p className="judul">{e.Title}</p>
-                <p className="tahun">Tahun: {e.Year}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
-
-function Modal({ isModal, detail, loading }) {
-  return (
-    <div className={`modal ${isModal ? "buka" : ""}`}>
-      {loading ? (
-        <div className="modal-content">
-          <p>Loading...</p>
-        </div>
-      ) : (
-        <div className="modal-content">
-          <img src={detail.Poster} alt="judul" />
-          <div className="modal-info">
-            <ul>
-              <li>Judul: {detail.Title}</li>
-              <li>Runtime: {detail.Runtime}</li>
-              <li>Tahun: {detail.Year}</li>
-              <li>Director: {detail.Director}</li>
-              <li>Rating: {detail.imdbRating} &#9733;</li>
-            </ul>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
