@@ -1,0 +1,1 @@
+export const api = import.meta.env.VITE_OMBDB_BASEURL+import.meta.env.VITE_OMBDB_APIKEY;
