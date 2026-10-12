@@ -11,9 +11,9 @@ Website tentang pencarian movie sederhana menggunakan React + Vite dan menggunak
 1. Install dependencies: `pnpm install`
 2. run: `pnpm run dev`
 3. Masuk ke website [OMDb API](https://www.omdbapi.com/) dan buat akun.
-4. Simpan api yang didapat
-5. Buat sebuah file api atau langsung buat di App.jsx
-6. Selesai
+4. Simpan api yang didapat.
+5. Buat sebuah file .env di root, lalu isi dengan base url dan apikey.
+6. Selesai.
 
 # Screenshots
 
