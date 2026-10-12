@@ -1,4 +1,4 @@
-# Pelacakan Pengeluaran
+# Movie Search App
 Website tentang pencarian movie sederhana menggunakan React + Vite dan menggunakan api dari [OMDb API](https://www.omdbapi.com/).
 
 # Fitur
